@@ -1,18 +1,53 @@
 .postCard {
-  border: 1px solid black;
-  background-color: #464d77;
-  padding: 1rem;
+  background-color: #635255;
+  padding: 1rem 1rem 1rem 0rem;
   border-radius: 1rem;
   color: #fcf7f8;
-  p {
-    color: #f9db6d;
+  box-shadow: 5px 2px 2px #372f31;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 5px 2px 2px #847176;
+    transform: translateY(-10px);
   }
 
-  span {
-    color: #36827f;
+  h2 {
+    text-align: center;
+    background-color: #83af93;
+    max-width: 80%;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
   }
 
-  li {
-    color: #f4eded;
+  .cardBody {
+    padding: 1rem;
+    p {
+      color: #d9e7e6;
+      text-align: center;
+      font-style: italic;
+    }
+
+    span {
+      color: black;
+      text-align: right;
+    }
+
+    ul {
+      background: #b5a6a9;
+      border-radius: 1rem;
+      list-style: none;
+      margin: 0;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #f4eded;
+      }
+    }
   }
 }

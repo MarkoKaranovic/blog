@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { Cards } from '../../components/Cards';
-
 import { useSearchResources } from '../../context/search';
 import Searchbar from '../../components/Searchbar';
 import style from './styles.module.scss';
 import { Api } from '../../api';
+import { Card } from '../../components/Cards/Card';
+import { Cards } from '../../components/Cards';
 
 export default function Posts() {
   const { posts, onFilterChange } = useSearchResources();
@@ -19,12 +19,7 @@ export default function Posts() {
       />
       <div className={style.postList}>
         {posts?.map((post: any) => {
-          return (
-            <Cards.Post
-              key={post.id}
-              post={post}
-            />
-          );
+          return <Cards.Post post={post} />;
         })}
 
         {/* PAGINATION */}

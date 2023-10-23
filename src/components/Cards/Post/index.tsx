@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
 import { QueriesKeys, QueryKey } from '../../../constants/QueriesKeys';
 import { Api } from '../../../api';
 import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss';
+import { FaUserAstronaut } from 'react-icons/fa';
+import { Card } from '../Card';
 
 export default function Post({ post }: any) {
   const navigate = useNavigate();
@@ -15,21 +16,28 @@ export default function Post({ post }: any) {
     queryKey: QueriesKeys[QueryKey.COMMENTS](post.userId),
     queryFn: async () => await Api.Comments.getComments({ postId: post.userId, _limit: null }),
   });
-
+  console.log(comments);
   return (
-    <div
+    <Card
       onClick={() => navigate(`/post/${post.id}`)}
       className={styles.postCard}
     >
       <h2>{post.title}</h2>
-      <p>{post.body}</p>
-      <span>Author: {data?.data.name}</span>
-      <ul>
-        {comments?.data.map((comment: any) => (
-          <li>{comment.body}</li>
-        ))}
-        {/* <button>Show all comments</button> */}
-      </ul>
-    </div>
+      <div className={styles.cardBody}>
+        <p>{post.body}</p>
+        <span>Author: {data?.data.name}</span>
+        <ul>
+          {comments?.data.map((comment: any) => (
+            <li>
+              <FaUserAstronaut />
+              <div>
+                <div>{comment.email}</div>
+                <div>{comment.name}</div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Card>
   );
 }
