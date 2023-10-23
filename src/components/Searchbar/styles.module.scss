@@ -1,0 +1,32 @@
+.container {
+  position: relative;
+  padding: 1rem;
+
+  .searchWrapper {
+    background-color: #f4eded;
+    display: flex;
+    gap: 1rem;
+    border: 1px solid #464d77;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    input {
+      border: none;
+      flex-grow: 1;
+      outline: none;
+      background-color: #f4eded;
+      color: #464d77;
+    }
+  }
+
+  .suggestionsWrapper {
+    position: absolute;
+    width: 100%;
+    background-color: #f4eded;
+    padding: 1rem;
+    p {
+      margin: 0;
+      color: #464d77;
+      cursor: pointer;
+    }
+  }
+}

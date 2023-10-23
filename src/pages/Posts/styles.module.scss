@@ -1,0 +1,13 @@
+.postPage {
+  background: #36827f;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+
+  .postList {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+  }
+}
