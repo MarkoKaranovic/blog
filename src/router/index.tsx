@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Posts from '../pages/Posts';
 import SinglePost from '../pages/SinglePost';
-
+import * as Search from '../context/search';
 export enum Routes {
   POSTS = 'posts',
   POST = 'post/:postId',
@@ -11,7 +11,11 @@ export enum Routes {
 export const router = createBrowserRouter([
   {
     path: Routes.POSTS,
-    element: <Posts />,
+    element: (
+      <Search.Provider>
+        <Posts />
+      </Search.Provider>
+    ),
   },
   {
     path: Routes.POST,

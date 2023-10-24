@@ -1,0 +1,41 @@
+.buttonContainer {
+  color: var(--btn-color);
+
+  .button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+
+    &.primary {
+      font-size: 14px;
+      color: #40644d;
+      background-color: #b5a6a9;
+    }
+    &:hover {
+      transform: translateY(-2px);
+      background-color: #b4a2a6;
+    }
+
+    &.square {
+      padding: 1rem;
+    }
+    &.circle {
+      padding: 38% 16px;
+      border-radius: 50%;
+    }
+
+    &.small {
+      padding: 5px 10px 5px 10px;
+    }
+    &.medium {
+      padding: 10px 20px 10px 20px;
+    }
+    &.large {
+      padding: 20px 30px 20px 30px;
+    }
+    &.xlarge {
+      padding: 30px 40px 30px 40px;
+    }
+  }
+}

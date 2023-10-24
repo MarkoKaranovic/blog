@@ -1,9 +1,6 @@
 .postPage {
-  background: #40644d;
   display: grid;
-  justify-content: center;
-  align-items: center;
-
+  padding: 0 5rem;
   .postList {
     display: grid;
     grid-template-columns: 1fr;

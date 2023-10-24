@@ -1,37 +1,46 @@
 import React, { Children, cloneElement } from 'react';
 
-// import { Paper } from '../Paper';
 import { CardSection } from './CardSection/CardSection';
-// import { CardProvider } from './Card.context';
-import classes from './Card.module.scss';
 
-export type CardStylesNames = 'root' | 'section';
-export type CardCssVariables = {
-  root: '--card-padding';
+import styles from './Card.module.scss';
+import classNames from 'classnames';
+
+export type CardSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | (string & {});
+export type CardNumberSize = CardSize | number | (string & {});
+
+const Sizes: Record<string, number> = {
+  xs: 0.5,
+  sm: 1,
+  md: 1.5,
+  lg: 2,
+  xl: 3,
 };
 
-// const varsResolver = createVarsResolver((_, { padding }) => ({
-//   root: {
-//     '--card-padding': getSpacing(padding),
-//   },
-// }));
+export const Card: any = React.forwardRef(({ children, ...props }: any, ref) => {
+  const {
+    classNames: _classNames,
+    className,
+    style,
+    shadow,
+    radius,
+    withBorder,
+    padding,
+    unstyled,
+    maw,
+    ...other
+  } = props;
 
-export const Card = ({ children, ...props }: any) => {
-  //   const getStyle = getStyles({
-  //     name: 'Card',
-  //     props,
-  //     classes,
-  //     className,
-  //     style,
-  //     classNames,
-  //     styles,
-  //     unstyled,
-  //     vars,
-  //     varsResolver,
-  //   });
+  const getStyle = getStyles({
+    padding,
+    shadow,
+    radius,
+    withBorder,
+    maw,
+    style,
+  });
 
   const _children = Children.toArray(children);
-  console.log(_children);
+
   const content = _children.map((child, index) => {
     if (typeof child === 'object' && child && 'type' in child && child.type === CardSection) {
       return cloneElement(child, {
@@ -45,15 +54,26 @@ export const Card = ({ children, ...props }: any) => {
 
   return (
     <div
-      // ref={ref}
-      // unstyled={unstyled}
-      // {...getStyles('root')}
-      {...props}
+      ref={ref}
+      style={getStyle}
+      className={classNames(styles.card, className, { [styles.unstyled]: unstyled })}
+      {...other}
     >
       {content}
     </div>
   );
+});
+
+const getStyles = ({ padding, radius, withBorder, shadow, maw, style }: any) => {
+  return {
+    '--card-padding': remResolver(Sizes[padding]),
+    '--card-border-radius': remResolver(Sizes[radius]),
+    border: withBorder ? 'var(--card-border)' : 'none',
+    maxWidth: `${maw}%`,
+    ...style,
+  };
 };
 
-Card.classes = classes;
+const remResolver = (value: number) => `${value}rem`;
+
 Card.Section = CardSection;

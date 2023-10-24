@@ -1,3 +1,18 @@
+$sizes-xs: 0.5rem;
+$sizes-sm: 1rem;
+$sizes-md: 1.5rem;
+$sizes-lg: 2rem;
+$sizes-xl: 3rem;
+
 body {
   margin: 0;
+  background: #40644d;
+}
+:root {
+  --card-padding-xs: #{$sizes-xs};
+  --card-padding-sm: #{$sizes-sm};
+  --card-padding-md: #{$sizes-md};
+  --card-padding-lg: #{$sizes-lg};
+  --card-padding-xl: #{$sizes-xl};
+  --card-border: 1px solid black;
 }
