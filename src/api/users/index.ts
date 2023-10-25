@@ -32,11 +32,11 @@ export interface Company {
 class Users {
   static endpoint = '/users';
 
-  static async getUsers(params: Record<string, string | null>) {
+  static async get(params: Record<string, string | null>) {
     return await instance.get<UsersType[]>(this.endpoint, { params }).then((data) => data.data);
   }
 
-  static async getUser(id: number) {
+  static async getById(id: number) {
     return await instance.get<UsersType>(`${this.endpoint}/${id}`).then((data) => data.data);
   }
 }

@@ -1,23 +1,26 @@
 import classNames from 'classnames';
 import styles from './Button.module.scss';
 import React from 'react';
+import { ButtonSize, ButtonTypes, Variants } from '../../types';
 
 interface OwnProps {
-  variant?: 'primary' | 'secondary';
+  variant?: Variants.PRIMARY | Variants.SECONDARY;
   name?: string;
-  size?: 'small' | 'medium' | 'large' | 'xlarge';
+  size?: ButtonSize.SMALL | ButtonSize.MEDIUM | ButtonSize.LARGE | ButtonSize.XLARGE;
   className?: string;
   style?: Record<string, string>;
-  type?: 'circle' | 'square';
+  type?: ButtonTypes.CIRCLE | ButtonTypes.SQUARE;
   children?: React.ReactNode;
   onClick?: () => void;
 }
 
+const dataTestId = 'btn';
+
 const Button = ({
-  variant = 'primary',
+  variant = Variants.PRIMARY,
   style,
-  size = 'medium',
-  type = 'square',
+  size = ButtonSize.MEDIUM,
+  type = ButtonTypes.SQUARE,
   className,
   children,
   ...rest
@@ -25,6 +28,7 @@ const Button = ({
   return (
     <div className={styles.buttonContainer}>
       <button
+        data-testid={dataTestId}
         className={classNames(styles.button, className, {
           [styles[variant]]: variant,
           [styles[type]]: !!type,

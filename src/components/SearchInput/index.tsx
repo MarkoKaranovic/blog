@@ -8,10 +8,22 @@ interface OwnProps {
   onBlur?: () => void;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   debounceTime?: number;
+  propsMessage?: string;
 }
 
-export default function SearchInput({ value, onChange, onBlur, onKeyDown, onClick, debounceTime = 500 }: OwnProps) {
-  const [internalValue, setInternalValue] = React.useState<string | undefined>(value);
+const dataTestId = 'search-input';
+const componentName = 'Search input';
+
+export default function SearchInput({
+  value,
+  onChange,
+  onBlur,
+  onKeyDown,
+  onClick,
+  debounceTime = 0,
+  propsMessage,
+}: OwnProps) {
+  const [internalValue, setInternalValue] = React.useState<string>(value ?? '');
   const debouncedValue = useDebounce<string>(internalValue, debounceTime);
   const handleChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement> & { key: string }) => {
@@ -26,15 +38,16 @@ export default function SearchInput({ value, onChange, onBlur, onKeyDown, onClic
 
   React.useEffect(() => {
     if (value !== internalValue) {
-      setInternalValue(value);
+      setInternalValue(value ?? '');
     }
   }, [value]);
   React.useEffect(() => {
     onChange?.(debouncedValue);
   }, [debouncedValue, handleChange]);
-
+  console.log(`${propsMessage} ${componentName}`);
   return (
     <input
+      data-testid={dataTestId}
       value={internalValue}
       onChange={handleChange}
       onClick={onClick}

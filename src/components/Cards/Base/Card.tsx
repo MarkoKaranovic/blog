@@ -18,13 +18,16 @@ type OwnProps = {
   style?: Record<string, string>;
   unstyled?: boolean;
   withBorder?: boolean;
+  propsMessage?: string;
 };
 
 interface AccordionComponent extends FC<OwnProps> {
   Section: FC<CardSectionProps>;
 }
 
-export const Card: AccordionComponent = ({ children, ...props }) => {
+const componentName = 'Base Card';
+
+export const Card: AccordionComponent = ({ children, propsMessage, ...props }) => {
   const { className, style, radius, withBorder, padding, unstyled, maw, ...other } = props;
 
   const getStyle = getStyles({
@@ -42,12 +45,13 @@ export const Card: AccordionComponent = ({ children, ...props }) => {
       return cloneElement(child, {
         'data-first-section': index === 0 || undefined,
         'data-last-section': index === _children?.length - 1 || undefined,
+        propsMessage,
       });
     }
 
     return child;
   });
-
+  console.log(`${propsMessage} ${componentName}`);
   return (
     <div
       style={getStyle}

@@ -2,34 +2,32 @@ import React from 'react';
 
 import { useSearchResources } from '../../context/search';
 import Searchbar from '../../components/Searchbar';
-import style from './styles.module.scss';
+import styles from './Post.module.scss';
 
 import { Cards } from '../../components/Cards';
 import { GridLoader } from 'react-spinners';
+const propsMessage = 'Hello from';
 
 export default function Posts() {
   const { posts, onFilterChange, isLoading } = useSearchResources();
 
   return (
-    <div className={style.postPage}>
+    <div className={styles.postPage}>
       <Searchbar
         onChange={(value: number) => {
           onFilterChange('userId', value);
         }}
+        propsMessage={propsMessage}
       />
 
-      <div className={style.postList}>
-        {isLoading && (
-          <GridLoader
-            color="#635255"
-            style={{ marginTop: '20%' }}
-          />
-        )}
+      <div className={styles.postList}>
+        {isLoading && <GridLoader className={styles.loader} />}
         {posts?.map((post) => {
           return (
             <Cards.Post
               key={post.id}
               post={post}
+              propsMessage={propsMessage}
             />
           );
         })}

@@ -23,7 +23,7 @@ class Main {
   setupInterceptor = () => {
     Api.instance.interceptors.request.use(
       async (config) => {
-        config.url = `${this.apiUrl}/${config.url!}`;
+        config.url = `${this.apiUrl}/${config.url}`;
         config.baseURL = this.apiUrl;
 
         return config;

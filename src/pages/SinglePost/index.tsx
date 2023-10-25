@@ -1,9 +1,20 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
-import styles from './styles.module.scss';
+import { useLocation, useParams } from 'react-router-dom';
+import styles from './SinglePost.module.scss';
+import { useQuery } from '@tanstack/react-query';
+import { Api } from '../../api';
+import { QueriesKeys, QueryKey } from '../../constants/QueriesKeys';
 export default function SinglePost() {
   const location = useLocation();
+  const { postId } = useParams();
 
+  const { data } = useQuery({
+    queryKey: QueriesKeys[QueryKey.POST](Number(postId)),
+    queryFn: async () => Api.Posts.getById(Number(postId) ?? 0),
+    enabled: !location.state,
+    initialData: location.state ?? undefined,
+  });
+  console.log(data);
   return (
     <div className={styles.singlePost}>
       <img
@@ -13,8 +24,8 @@ export default function SinglePost() {
         height={500}
       />
       <div className={styles.postHero}>
-        <h1>{location.state.title}</h1>
-        <p>{location.state.body}</p>
+        <h1>{data?.title}</h1>
+        <p>{data?.body}</p>
       </div>
       <div className={styles.aboutAuthor}>
         <div className={styles.image}>
@@ -27,7 +38,7 @@ export default function SinglePost() {
           />
         </div>
         <div className={styles.details}>
-          <p>Arthur Black</p>
+          <p>{data.user.name}</p>
           <p>
             Ipsum adipisicing culpa est nisi consequat ex amet magna culpa veniam tempor irure ea. Reprehenderit labore
             do tempor eiusmod in consectetur ex sunt id mollit commodo ipsum deserunt quis.

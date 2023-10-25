@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { Navigate, createBrowserRouter } from 'react-router-dom';
 import Posts from '../pages/Posts';
 import SinglePost from '../pages/SinglePost';
 
@@ -17,8 +17,8 @@ export const router = createBrowserRouter([
     path: Routes.POST,
     element: <SinglePost />,
   },
-  // {
-  //   path: Routes.NOT_FOUND,
-  //   element: <PageNotFound />,
-  // },
+  {
+    path: Routes.NOT_FOUND,
+    element: <Navigate to={Routes.POSTS} />,
+  },
 ]);

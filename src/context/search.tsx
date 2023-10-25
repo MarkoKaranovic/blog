@@ -17,12 +17,12 @@ export const Provider = React.memo(({ children }: { children: React.ReactNode })
   const [filter, setFilter] = React.useState({});
   const { data, isLoading } = useQuery({
     queryKey: QueriesKeys[QueryKey.POSTS](filter),
-    queryFn: async () => await Api.Posts.getPostsList(filter),
+    queryFn: async () => await Api.Posts.get(filter),
   });
 
-  const onFilterChange = (field: string, value: number) => {
+  const onFilterChange = React.useCallback((field: string, value: number) => {
     setFilter((prev) => ({ ...prev, [field]: value }));
-  };
+  }, []);
 
   const value = React.useMemo(
     () => ({
