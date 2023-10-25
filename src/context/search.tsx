@@ -2,31 +2,31 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { Api } from '../api';
 import { QueriesKeys, QueryKey } from '../constants/QueriesKeys';
-import { PostsType } from '../api/posts';
+import { type PostsType } from '../api/posts';
 
-type ContextType = {
+interface ContextType {
   posts: PostsType[];
   isLoading: boolean;
-  onFilterChange: (field: string, value: string) => void;
-};
+  onFilterChange: (field: string, value: number) => void;
+}
 
 const Context = React.createContext<ContextType>({ posts: [], isLoading: false, onFilterChange: () => ({}) });
 Context.displayName = 'SearchContext';
 
-export const Provider = React.memo<any>(({ children }: { children: React.ReactNode }) => {
+export const Provider = React.memo(({ children }: { children: React.ReactNode }) => {
   const [filter, setFilter] = React.useState({});
   const { data, isLoading } = useQuery({
     queryKey: QueriesKeys[QueryKey.POSTS](filter),
     queryFn: async () => await Api.Posts.getPostsList(filter),
   });
 
-  const onFilterChange = (field: string, value: string) => {
+  const onFilterChange = (field: string, value: number) => {
     setFilter((prev) => ({ ...prev, [field]: value }));
   };
 
   const value = React.useMemo(
     () => ({
-      posts: data?.data ?? [],
+      posts: data ?? [],
       isLoading,
       onFilterChange,
     }),

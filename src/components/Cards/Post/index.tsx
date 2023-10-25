@@ -1,19 +1,20 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useQuery } from '@tanstack/react-query';
 import { QueriesKeys, QueryKey } from '../../../constants/QueriesKeys';
 import { Api } from '../../../api';
 import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.scss';
 import { FaComments } from 'react-icons/fa';
-import { Card } from '../Card';
+import { Card } from '../Base/Card';
 import React from 'react';
 import { GridLoader } from 'react-spinners';
 import Button from '../../Button/Button';
-import { PostsType } from '../../../api/posts';
-import { CommentsType } from '../../../api/comments';
+import { type PostsType } from '../../../api/posts';
+import { type CommentsType } from '../../../api/comments';
 
-type OwnProps = {
+interface OwnProps {
   post: PostsType;
-};
+}
 
 export default function Post({ post }: OwnProps) {
   const navigate = useNavigate();
@@ -39,11 +40,11 @@ export default function Post({ post }: OwnProps) {
     }
     return (
       <ul>
-        {comments?.data.map((comment: CommentsType) => (
-          <li>
+        {comments?.map((comment: CommentsType) => (
+          <li key={comment.id}>
             <div className={styles.commentAuthor}>
               <img
-                src="/user-test.png"
+                src="/profile.svg"
                 width={50}
                 height={50}
                 alt="user"
@@ -60,44 +61,38 @@ export default function Post({ post }: OwnProps) {
   return (
     <Card
       className={styles.postCard}
-      shadow="sm"
-      padding="xl"
       radius="xs"
-      withBorder
-      maw={40}
+      maw={50}
     >
-      <Card.Section className={styles.cardHeader}>
-        <div className={styles.author}>
-          <img
-            src="/user-test.png"
-            width={100}
-            height={100}
-            alt="user"
-          />
-          <p>{data?.data.name}</p>
+      <Card.Section>
+        <div className={styles.postWrapper}>
+          <img src="/test-post.svg" />
+          <div>
+            <h3>{post.title}</h3>
+            <p>{data?.name}</p>
+            <p>{post.body}</p>
+            <div className={styles.btnWrapper}>
+              <Button
+                onClick={() => {
+                  setShowComments(!showComments);
+                }}
+                type="circle"
+              >
+                <FaComments />
+              </Button>
+              <Button
+                type="square"
+                onClick={() => {
+                  navigate(`/post/${post.id}`, { state: post });
+                }}
+                className={styles.visitBtn}
+              >
+                Visit post
+              </Button>
+            </div>
+          </div>
         </div>
-        <h2>{post.title}</h2>
-      </Card.Section>
-      <div className={styles.cardBody}>
-        <p>{post.body}</p>
-        <Button
-          onClick={() => setShowComments(!showComments)}
-          type="circle"
-        >
-          <FaComments />
-        </Button>
-
         {showComments && renderComments()}
-      </div>
-
-      <Card.Section className={styles.cardFooter}>
-        <Button
-          type="square"
-          onClick={() => navigate(`/post/${post.id}`)}
-          className={styles.visitBtn}
-        >
-          Visit post
-        </Button>
       </Card.Section>
     </Card>
   );

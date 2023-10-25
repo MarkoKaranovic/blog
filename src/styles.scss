@@ -5,8 +5,8 @@ $sizes-lg: 2rem;
 $sizes-xl: 3rem;
 
 body {
-  margin: 0;
-  background: #40644d;
+  margin: 0 auto;
+  max-width: 1440px;
 }
 :root {
   --card-padding-xs: #{$sizes-xs};

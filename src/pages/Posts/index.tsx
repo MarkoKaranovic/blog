@@ -13,7 +13,7 @@ export default function Posts() {
   return (
     <div className={style.postPage}>
       <Searchbar
-        onChange={(value: string) => {
+        onChange={(value: number) => {
           onFilterChange('userId', value);
         }}
       />

@@ -2,21 +2,20 @@ import classNames from 'classnames';
 import styles from './Button.module.scss';
 import React from 'react';
 
-type OwnProps = {
-  variant?: string;
+interface OwnProps {
+  variant?: 'primary' | 'secondary';
   name?: string;
-  size?: string;
+  size?: 'small' | 'medium' | 'large' | 'xlarge';
   className?: string;
   style?: Record<string, string>;
-  type?: string;
+  type?: 'circle' | 'square';
   children?: React.ReactNode;
   onClick?: () => void;
-};
+}
 
 const Button = ({
   variant = 'primary',
   style,
-  name = 'name',
   size = 'medium',
   type = 'square',
   className,

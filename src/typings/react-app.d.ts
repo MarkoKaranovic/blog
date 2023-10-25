@@ -1,5 +1,7 @@
 /// <reference types="node" />
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference types="react" />
+
 /// <reference types="react-dom" />
 
 declare namespace NodeJS {
@@ -35,7 +37,7 @@ declare module '*.png' {
 }
 
 declare module '*.svg' {
-  import * as React from 'react';
+  import type * as React from 'react';
 
   export const ReactComponent: React.SFC<React.SVGProps<SVGSVGElement>>;
 
@@ -44,21 +46,22 @@ declare module '*.svg' {
 }
 
 declare module '*.module.css' {
-  const classes: { [key: string]: string };
+  const classes: Record<string, string>;
   export default classes;
 }
 
 declare module '*.module.scss' {
-  const classes: { [key: string]: string };
+  const classes: Record<string, string>;
   export default classes;
 }
 
 declare module '*.module.sass' {
-  const classes: { [key: string]: string };
+  const classes: Record<string, string>;
   export default classes;
 }
 
 declare module '*.json' {
-  const classes: { [key: string]: any };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const classes: Record<string, any>;
   export default classes;
 }

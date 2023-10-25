@@ -10,12 +10,14 @@ export interface CommentsType {
 class Comments {
   static endpoint = '/comments';
 
-  static getComments(params: Record<string, number | null>) {
-    return instance.get<CommentsType[]>(this.endpoint, { params: { _start: 0, _limit: 2, ...params } });
+  static async getComments(params: Record<string, number | null>) {
+    return await instance
+      .get<CommentsType[]>(this.endpoint, { params: { _start: 0, _limit: 2, ...params } })
+      .then((data) => data.data);
   }
 
-  static getComment(id: string) {
-    return instance.get<Comments>(`${this.endpoint}/${id}`);
+  static async getComment(id: string) {
+    return await instance.get<Comments>(`${this.endpoint}/${id}`).then((data) => data.data);
   }
 }
 export default Comments;

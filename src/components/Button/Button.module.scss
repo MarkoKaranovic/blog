@@ -9,19 +9,25 @@
 
     &.primary {
       font-size: 14px;
-      color: #40644d;
-      background-color: #b5a6a9;
+    }
+
+    &.secondary {
+      font-size: 14px;
+      color: white;
+      background-color: black;
     }
     &:hover {
       transform: translateY(-2px);
-      background-color: #b4a2a6;
     }
 
     &.square {
       padding: 1rem;
+      border: 1px solid black;
+      border-radius: 1rem;
     }
     &.circle {
       padding: 38% 16px;
+      border: 1px solid black;
       border-radius: 50%;
     }
 
