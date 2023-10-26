@@ -11,7 +11,7 @@ import Button from '../../Button/Button';
 import { type PostsType } from '../../../api/posts';
 import { type CommentsType } from '../../../api/comments';
 import styles from './PostCard.module.scss';
-import { ButtonTypes } from '../../../types';
+import { ButtonTypes, Variants } from '../../../types';
 
 interface OwnProps {
   post: PostsType;
@@ -80,6 +80,7 @@ export default function Post({ post, propsMessage }: OwnProps) {
                 <FaComments />
               </Button>
               <Button
+                variant={Variants.SECONDARY}
                 type={ButtonTypes.SQUARE}
                 onClick={() => {
                   navigate(`/post/${post.id}`, { state: post });

@@ -39,7 +39,7 @@ export default function Posts() {
           totalCount={count}
           pageSize={10}
           propsMessage={propsMessage}
-          onPageChange={(page: number) => onFilterChange({ _start: page * 10 - 10, _end: page * 10 })}
+          onPageChange={(page: number) => onFilterChange({ _page: page })}
         />
       </div>
     </div>

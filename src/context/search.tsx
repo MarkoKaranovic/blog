@@ -21,9 +21,13 @@ export const Provider = React.memo(({ children }: { children: React.ReactNode })
     queryFn: async () => await Api.Posts.get(filter),
   });
 
-  const onFilterChange = React.useCallback((value: Record<string, string | number | null>) => {
-    setFilter((prev) => ({ ...prev, ...value, ...(value ? { _start: 0, _end: 10 } : {}) }));
-  }, []);
+  const onFilterChange = React.useCallback(
+    (value: Record<string, string | number | null>) => {
+      console.log(value);
+      setFilter((prev) => ({ ...prev, ...(value ? { _start: 0, _end: 10, _page: null } : {}), ...value }));
+    },
+    [filter],
+  );
 
   const value = React.useMemo(
     () => ({
