@@ -23,7 +23,6 @@ export const Provider = React.memo(({ children }: { children: React.ReactNode })
 
   const onFilterChange = React.useCallback(
     (value: Record<string, string | number | null>) => {
-      console.log(value);
       setFilter((prev) => ({ ...prev, ...(value ? { _start: 0, _end: 10, _page: null } : {}), ...value }));
     },
     [filter],

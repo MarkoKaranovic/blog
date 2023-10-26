@@ -14,7 +14,7 @@ export default function SinglePost() {
     enabled: !location.state,
     initialData: location.state ?? undefined,
   });
-  console.log(data);
+
   return (
     <div className={styles.singlePost}>
       <img
