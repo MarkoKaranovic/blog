@@ -11,5 +11,5 @@ export const QueriesKeys = {
   [QueryKey.POST]: (postId: number) => [QueryKey.POSTS, postId],
   [QueryKey.COMMENTS]: (postId: number) => [QueryKey.COMMENTS, postId],
   [QueryKey.USER]: (userId: number) => [QueryKey.USER, userId],
-  [QueryKey.SUGGESTIONS]: (userId?: string) => [QueryKey.USER, userId],
+  [QueryKey.SUGGESTIONS]: (userId: string | null) => [QueryKey.USER, userId],
 };

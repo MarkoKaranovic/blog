@@ -10,7 +10,7 @@ export default function SinglePost() {
 
   const { data } = useQuery({
     queryKey: QueriesKeys[QueryKey.POST](Number(postId)),
-    queryFn: async () => Api.Posts.getById(Number(postId) ?? 0),
+    queryFn: async () => Api.Posts.getById(Number(postId)),
     enabled: !location.state,
     initialData: location.state ?? undefined,
   });
@@ -38,7 +38,7 @@ export default function SinglePost() {
           />
         </div>
         <div className={styles.details}>
-          <p>{data.user.name}</p>
+          <p>{data.user?.name}</p>
           <p>
             Ipsum adipisicing culpa est nisi consequat ex amet magna culpa veniam tempor irure ea. Reprehenderit labore
             do tempor eiusmod in consectetur ex sunt id mollit commodo ipsum deserunt quis.

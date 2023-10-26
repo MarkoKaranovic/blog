@@ -2,9 +2,9 @@ import React from 'react';
 import { useDebounce } from '../../hooks/debounce';
 
 interface OwnProps {
-  value?: string;
+  value?: string | null;
   onClick?: () => void;
-  onChange?: (value?: string) => void;
+  onChange?: (value: string | null) => void;
   onBlur?: () => void;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   debounceTime?: number;

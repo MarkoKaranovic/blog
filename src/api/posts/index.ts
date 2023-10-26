@@ -11,8 +11,10 @@ class Posts {
 
   static async get(params: Record<string, string | null>) {
     return await instance
-      .get<PostsType[]>(this.endpoint, { params: { _expand: 'user', ...params } })
-      .then((data) => data.data);
+      .get<PostsType[]>(this.endpoint, { params: { _start: 0, _end: 10, ...params } })
+      .then((data) => {
+        return { data: data.data, count: data.headers['x-total-count'] };
+      });
   }
 
   static async getById(id: number) {

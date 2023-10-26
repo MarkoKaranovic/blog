@@ -6,11 +6,12 @@ import { type PostsType } from '../api/posts';
 
 interface ContextType {
   posts: PostsType[];
+  count: number;
   isLoading: boolean;
-  onFilterChange: (field: string, value: number) => void;
+  onFilterChange: (value: Record<string, string | number | null>) => void;
 }
 
-const Context = React.createContext<ContextType>({ posts: [], isLoading: false, onFilterChange: () => ({}) });
+const Context = React.createContext<ContextType>({ posts: [], count: 0, isLoading: false, onFilterChange: () => ({}) });
 Context.displayName = 'SearchContext';
 
 export const Provider = React.memo(({ children }: { children: React.ReactNode }) => {
@@ -20,13 +21,14 @@ export const Provider = React.memo(({ children }: { children: React.ReactNode })
     queryFn: async () => await Api.Posts.get(filter),
   });
 
-  const onFilterChange = React.useCallback((field: string, value: number) => {
-    setFilter((prev) => ({ ...prev, [field]: value }));
+  const onFilterChange = React.useCallback((value: Record<string, string | number | null>) => {
+    setFilter((prev) => ({ ...prev, ...value, ...(value ? { _start: 0, _end: 10 } : {}) }));
   }, []);
 
   const value = React.useMemo(
     () => ({
-      posts: data ?? [],
+      posts: data?.data ?? [],
+      count: data?.count ?? 0,
       isLoading,
       onFilterChange,
     }),

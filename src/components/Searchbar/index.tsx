@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { QueriesKeys, QueryKey } from '../../constants/QueriesKeys';
 
 import { BsSearch } from 'react-icons/bs';
+import { TiDelete } from 'react-icons/ti';
 import { Api } from '../../api';
 import { UsersType } from '../../api/users';
 import classNames from 'classnames';
@@ -13,15 +14,15 @@ import styles from './Searchbar.module.scss';
 
 const componentName = 'Searchbar';
 interface OwnProps {
-  onChange: (value: number) => void;
+  onChange: (value: number | null) => void;
   propsMessage: string;
 }
 
 export const Searchbar = React.memo(
   ({ onChange, propsMessage }: OwnProps) => {
-    const [searchQuery, setSearchQuery] = React.useState<string | undefined>(undefined);
-    const [selectedSuggestion, selectSuggestion] = React.useState<number | undefined>(undefined);
-    const [showSuggestions, setShowSuggestions] = React.useState<boolean>(false);
+    const [searchQuery, setSearchQuery] = React.useState<string | null>(null);
+    const [selectedSuggestion, selectSuggestion] = React.useState<number | null>(null);
+    const [showSuggestions, setShowSuggestions] = React.useState<boolean>(true);
 
     const ref = React.useRef<HTMLDivElement>();
 
@@ -40,6 +41,11 @@ export const Searchbar = React.memo(
       },
       [onChange],
     );
+    const onClearSearch = () => {
+      selectSuggestion(null);
+      onChange(null);
+      setSearchQuery('');
+    };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter') {
@@ -49,12 +55,12 @@ export const Searchbar = React.memo(
       }
 
       if (e.key === 'ArrowDown') {
-        selectSuggestion(suggestions?.[0].value);
-        setSearchQuery(suggestions?.[0].label);
+        selectSuggestion(suggestions?.[0]?.value ?? null);
+        setSearchQuery(suggestions?.[0]?.label ?? null);
       }
       if (e.key === 'ArrowUp') {
-        selectSuggestion(suggestions?.[0].value);
-        setSearchQuery(suggestions?.[0].label);
+        selectSuggestion(suggestions?.[0]?.value ?? null);
+        setSearchQuery(suggestions?.[0]?.label ?? null);
       }
     };
 
@@ -99,18 +105,16 @@ export const Searchbar = React.memo(
             }}
           />
           <SearchInput
-            onChange={(value?: string) => {
-              setSearchQuery(value);
-              setShowSuggestions(true);
-            }}
+            onChange={setSearchQuery}
             onClick={() => {
-              suggestions?.length && setShowSuggestions(true);
+              setShowSuggestions(true);
             }}
             onKeyDown={handleKeyDown}
             value={searchQuery}
             debounceTime={380}
             propsMessage={propsMessage}
           />
+          <TiDelete onClick={onClearSearch} />
         </div>
         {renderSuggestions()}
       </div>
